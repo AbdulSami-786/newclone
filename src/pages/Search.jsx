@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import useFetch from './hooks/useFetch'; // ✅ Make sure this path is correct
-import Card from '../component/card';     // ✅ Make sure this path is correct
+import useFetch from './hooks/useFetch.jsx'; // ✅ Make sure this path is correct
+import Card from '../component/Card.jsx';     // ✅ Make sure this path is correct
 
 function Search() {
   const searchQuery = useSelector((state) => state.cart.searchQuery); // Correctly accessing searchQuery
