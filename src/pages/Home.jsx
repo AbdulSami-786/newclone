@@ -1,8 +1,8 @@
 import React from 'react'
-import Banner from '../component/Banner'
-import Icon from '../component/Icon'
-import useFetch from './hooks/useFetch'
-import Card from '../component/card'
+import Banner from '../component/Banner.jsx'
+import Icon from '../component/Icon.jsx'
+import useFetch from './hooks/useFetch.jsx'
+import Card from '../component/Card.jsx'
 import { Link } from 'react-router-dom'
 
 function Home() {
