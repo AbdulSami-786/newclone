@@ -18,7 +18,7 @@ If the issue persists, please contact our support team for further assistance</
   return (
     <>
     {console.log(data)}
-    <div className='flex flex-wrap gap-4 content-center items-center m-10 marg mt-[130px]'>
+    <div className='flex flex-wrap gap-4 content-center items-center m-10 marg mtt'>
     {data && data.products && data.products.map((item) => {
         return (
             <Card key={item.id} id={item.id} title={item.title} description={item.description} img={item.thumbnail} price={item.price}/>

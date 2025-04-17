@@ -32,7 +32,7 @@ function Home() {
 
   return (
     <>
-    <div className='mt-[130px]'>
+    <div className='mtt'>
 
       <Banner img={'https://images.olx.com.pk/thumbnails/527654309-800x600.webp'}  />
 

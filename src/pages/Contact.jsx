@@ -2,7 +2,7 @@ import React from 'react'
 
 function Contact() {
   return (
-    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24 marg mt-[130px]">
+    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24 marg mtt">
       <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
       <p className="text-lg mb-4">
         We would love to hear from you! Please fill out the form below to get in

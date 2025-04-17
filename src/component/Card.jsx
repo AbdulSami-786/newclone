@@ -21,7 +21,8 @@ const Card = ({title , img , id ,price}) => {
     // )
     return (
         <div  onClick={()=>navigate(`/product/${id}`)} style={{
-          width:"31%",
+          maxWidth:'100%',
+          minWidth:'31%',
           border:'1px solid black'
           
         }}>

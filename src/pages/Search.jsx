@@ -32,7 +32,7 @@ function Search() {
   // Optional: Handle no results case
   if (data?.products?.length === 0) {
     return (
-      <div className='flex justify-center items-center h-[80vh] text-xl font-semibold text-gray-500 mt-[120px]'>
+      <div className='flex justify-center items-center h-[80vh] text-xl font-semibold text-gray-500 mtt'>
         No products found for "<span className='text-black font-bold mx-1'>{searchQuery}</span>"
       </div>
     );

@@ -23,7 +23,9 @@
   object-fit: cover;
   margin-top: 100px;
 }
-
+.mtt{
+  margin-top: 120px;
+}
 .navsec {
   width: 90%;
   margin: 10px auto;
@@ -91,4 +93,16 @@
   color: #fff;
   background-color: #49e5db;
   border-color: #49e5db;
+}
+@media(max-width:600px){
+  .mtt{
+    margin-top: 250px;
+  }
+  .bann {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: cover;
+    margin-top: 100px;
+  }
 }

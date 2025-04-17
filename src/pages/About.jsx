@@ -2,7 +2,7 @@ import React from 'react'
 
 function About() {
   return (
-    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24 mt-[130px]" >
+    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24 mtt" >
       <h1 className="text-3xl font-bold mb-4">About Us</h1>
       <p className="text-lg mb-4">
         Welcome to our e-commerce website, where we strive to provide the best

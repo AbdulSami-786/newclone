@@ -31,7 +31,7 @@ function Checkout() {
   }
 
   return (
-    <div className="container mx-auto p-4 mt-[70px]">
+    <div className="container mx-auto p-4 mtt">
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Shipping Info */}
