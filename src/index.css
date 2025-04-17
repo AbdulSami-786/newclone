@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.cataicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.cataicon img {
+  width: 80px;
+}
+.cataicon h1 {
+  font-family: 'Lucida Sans', sans-serif;
+  text-align: center;
+}
+
+.bann {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
+  margin-top: 100px;
+}
+
+.navsec {
+  width: 90%;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background-color: white;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  border: 1px solid black;
+  padding: 6px 20px;
+  border-radius: 5px;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search input {
+  width: 100%;
+  border-radius: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+}
+
+.search img {
+  width: 40px;
+  margin-left: 10px;
+}
+
+.login {
+  font-family: 'Lucida Sans', sans-serif;
+  font-size: 1rem;
+  color: black;
+  text-decoration: underline;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.login:hover {
+  text-decoration: none;
+}
+
+.sell button {
+  font-family: 'Lucida Sans', sans-serif;
+  color: #49e5db;
+  padding: 6px 20px;
+  border: 2px solid #49e5db;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+.sell button:hover {
+  color: #fff;
+  background-color: #49e5db;
+  border-color: #49e5db;
+}
