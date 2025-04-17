@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { addcarts } from '../config/redux/reducer/cartSlice'
 import { useDispatch } from 'react-redux'
-import useFetch from './hooks/useFetch'
+import useFetch from './hooks/useFetch.jsx'
 import Swal from 'sweetalert2' // ✅ Import SweetAlert2
 
 function showAlert() {

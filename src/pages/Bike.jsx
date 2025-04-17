@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import useFetch from './hooks/useFetch'
-import Card from '../component/card'
+import useFetch from './hooks/useFetch.jsx'
+import Card from '../component/Card.jsx'
 function Bike() {
 const [load , error , data] = useFetch('https://dummyjson.com/products/category/motorcycle')
 if(load){
