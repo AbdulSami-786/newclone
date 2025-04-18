@@ -16,14 +16,18 @@ if(error){
 
 If the issue persists, please contact our support team for further assistance</h1>
 }
-  return (
-
-    <div className='flex flex-wrap gap-4 content-center items-center m-10 marg mtt'>
-    {data && data.products && data.products.map((item) => {
-      return (
-       <Card key={item.id} id={item.id} title={item.title} description={item.description} img={item.thumbnail} price={item.price}/>
-      );
-    })}
+return (
+  <div className="grid gap-6 p-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mtt" >
+    {data?.products?.map((item) => (
+      <Card
+        key={item.id}
+        id={item.id}
+        title={item.title}
+        description={item.description}
+        img={item.thumbnail}
+        price={item.price}
+      />
+    ))}
   </div>
 );
 }

@@ -77,7 +77,7 @@ const Navbar = () => {
               <li><Link to="/about">ABOUT</Link></li>
               <li><Link to="/products">PRODUCTS</Link></li>
               <li><Link to="/contact">CONTACT</Link></li>
-              <li><Link to="/signup" className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:scale-105 transition-all duration-300 ease-in-out">SIGN UP</Link></li>
+              <li><Link to="/login" className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:scale-105 transition-all duration-300 ease-in-out">SIGN UP</Link></li>
               <li><Link to="/cart" className="inline-block bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:scale-105 transition-all duration-300 ease-in-out">CART ({cartItems.length})</Link></li>
             </ul>
           </div>
@@ -89,7 +89,7 @@ const Navbar = () => {
             <li><Link to="/about" className="inline-block text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gradient-to-r from-green-400 to-green-600 hover:text-white transition-all duration-300 ease-in-out">ABOUT</Link></li>
             <li><Link to="/products" className="inline-block text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gradient-to-r from-yellow-400 to-yellow-600 hover:text-white transition-all duration-300 ease-in-out">PRODUCTS</Link></li>
             <li><Link to="/contact" className="inline-block text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gradient-to-r from-purple-400 to-purple-600 hover:text-white transition-all duration-300 ease-in-out">CONTACT</Link></li>
-            <li><Link to="/signup" className="inline-block text-black font-semibold mr-[10px] py-2 px-6 rounded-lg transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:scale-105 hover:shadow-lg hover:text-yellow-100">SIGN UP</Link></li>
+            <li><Link to="/login" className="inline-block text-black font-semibold mr-[10px] py-2 px-6 rounded-lg transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:scale-105 hover:shadow-lg hover:text-yellow-100">SIGN UP</Link></li>
             <li><Link to="/cart" className="inline-block bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:scale-105 transition-all duration-300 ease-in-out">CART ({cartItems.length})</Link></li>
           </ul>
         </div>
@@ -115,7 +115,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="font-medium cursor-pointer">Login</span>
+         <Link to={'/signup'}> <span className="font-medium cursor-pointer">Login</span></Link>
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold">
             + SELL
           </button>

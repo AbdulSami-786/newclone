@@ -1,85 +1,115 @@
-import React from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
 
 function Contact() {
   return (
-    <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24 marg mtt">
-      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-      <p className="text-lg mb-4">
-        We would love to hear from you! Please fill out the form below to get in
-        touch with us.
-      </p>
-      <form className="flex flex-wrap -mx-4 mb-4">
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <label className="text-lg font-bold mb-2" htmlFor="name">
-            Name:
-          </label>
+    <div className="container mx-auto px-4 py-10 md:py-16 lg:py-20 mtt">
+      <motion.h1
+        className="text-4xl font-bold mb-6 text-center text-gray-800"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        Contact Us
+      </motion.h1>
+
+      <motion.p
+        className="text-lg text-center text-gray-600 mb-10 max-w-2xl mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+      >
+        We'd love to hear from you. Fill out the form below and we’ll get back to you as soon as possible.
+      </motion.p>
+
+      <form className="flex flex-wrap gap-6 justify-center">
+        <motion.div
+          className="w-full md:w-1/2 lg:w-1/3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Name</label>
           <input
-            className="w-full p-2 border border-gray-400 rounded-lg"
             type="text"
-            id="name"
-            name="name"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Your Name"
           />
-        </div>
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <label className="text-lg font-bold mb-2" htmlFor="email">
-            Email:
-          </label>
+        </motion.div>
+
+        <motion.div
+          className="w-full md:w-1/2 lg:w-1/3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Email</label>
           <input
-            className="w-full p-2 border border-gray-400 rounded-lg"
             type="email"
-            id="email"
-            name="email"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Your Email"
           />
-        </div>
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <label className="text-lg font-bold mb-2" htmlFor="phone">
-            Phone:
-          </label>
+        </motion.div>
+
+        <motion.div
+          className="w-full md:w-1/2 lg:w-1/3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Phone</label>
           <input
-            className="w-full p-2 border border-gray-400 rounded-lg"
             type="text"
-            id="phone"
-            name="phone"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Phone Number"
           />
-        </div>
-        <div className="w-full p-4">
-          <label className="text-lg font-bold mb-2" htmlFor="message">
-            Message:
-          </label>
+        </motion.div>
+
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Message</label>
           <textarea
-            className="w-full p-2 border border-gray-400 rounded-lg"
-            id="message"
-            name="message"
-          />
-        </div>
-        <div className="w-full p-4">
-          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg">
+            rows="4"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Your Message"
+          ></textarea>
+        </motion.div>
+
+        <motion.div
+          className="w-full text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition duration-300"
+          >
             Send Message
           </button>
-        </div>
+        </motion.div>
       </form>
-      <div className="flex flex-wrap -mx-4 mb-4">
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <h2 className="text-lg font-bold mb-2">Address:</h2>
-          <p className="text-lg">
-            123 Main St, Anytown, USA 12345
-          </p>
+
+      <div className="mt-16 grid gap-6 md:grid-cols-3 text-center text-gray-700">
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Address</h3>
+          <p>123 Main St, Anytown, USA 12345</p>
         </div>
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <h2 className="text-lg font-bold mb-2">Phone:</h2>
-          <p className="text-lg">
-            555-555-5555
-          </p>
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Phone</h3>
+          <p>555-555-5555</p>
         </div>
-        <div className="w-full md:w-1/2 xl:w-1/3 p-4">
-          <h2 className="text-lg font-bold mb-2">Email:</h2>
-          <p className="text-lg">
-            [info@example.com](mailto:info@example.com)
-          </p>
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Email</h3>
+          <p>info@example.com</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default Contact
+export default Contact;

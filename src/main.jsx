@@ -20,6 +20,7 @@ import { store } from '../src/config/redux/store/store.js'
 import { Provider } from 'react-redux'
 import Search from './pages/Search.jsx'
 import Checkout from './pages/Checkout.jsx'
+import Login from './pages/Login.jsx'
 const router = createBrowserRouter([
   {
     path: '',
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <About/>
+      },
+      {
+        path: 'login',
+        element: <Login/>
       },
       {
         path: 'cart',
