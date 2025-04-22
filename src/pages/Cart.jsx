@@ -11,6 +11,20 @@ function Cart() {
     return cartItems.reduce((acc, item) => acc + item.data.price * item.quantity, 0)
   }
 
+  const handleIncreaseQty = (item) => {
+    if (item.quantity < item.data.stock) {
+      dispatch(increaseQty({ id: item.id }))
+    } else {
+      alert(`Only ${item.data.stock} items left in stock!`)
+    }
+  }
+
+  const handleDecreaseQty = (item) => {
+    if (item.quantity > 1) {
+      dispatch(decreaseQty({ id: item.id }))
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-bold mb-10 text-center text-primary">Your Cart 🛒</h1>
@@ -51,19 +65,23 @@ function Cart() {
                     {/* Quantity Controls */}
                     <div className="flex items-center gap-2 mt-3">
                       <button
-                        onClick={() => dispatch(decreaseQty({ id: item.id }))}
+                        onClick={() => handleDecreaseQty(item)}
                         className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-lg font-bold"
                       >
                         −
                       </button>
                       <span className="text-lg font-medium">{item.quantity}</span>
                       <button
-                        onClick={() => dispatch(increaseQty({ id: item.id }))}
+                        onClick={() => handleIncreaseQty(item)}
                         className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-lg font-bold"
                       >
                         +
                       </button>
                     </div>
+                    {/* Stock Alert */}
+                    <p className="text-xs text-gray-500 mt-2">
+                      {item.data.stock > 0 ? `${item.data.stock} items available` : 'Out of stock'}
+                    </p>
                   </div>
                 </div>
 

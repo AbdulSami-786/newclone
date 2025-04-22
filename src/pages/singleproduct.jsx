@@ -1,10 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { addcarts } from '../config/redux/reducer/cartSlice'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { addcarts } from '../config/redux/reducer/cartSlice'
 import useFetch from './hooks/useFetch.jsx'
-import { FaTag, FaLayerGroup } from 'react-icons/fa'
 import Swal from 'sweetalert2'
+import { FaTag, FaLayerGroup, FaStar, FaClock } from 'react-icons/fa'
 
 function showAlert() {
   Swal.fire({
@@ -12,63 +12,82 @@ function showAlert() {
     icon: 'success',
     title: 'Product added to cart!',
     showConfirmButton: false,
-    timer: 1500
+    timer: 1500,
   })
 }
 
 function SingleProduct() {
+  const { id } = useParams()
   const dispatch = useDispatch()
-  const params = useParams()
-  const [load, error, data] = useFetch(`https://dummyjson.com/products/${params.id}`)
+  const navigate = useNavigate()
+  const [load, error, data] = useFetch(`https://dummyjson.com/products/${id}`)
 
-  if (load) {
+  if (load)
     return (
       <div className="flex justify-center items-center h-[80vh] text-2xl font-bold">
         LOADING <span className="loading loading-infinity loading-lg ml-3"></span>
       </div>
     )
-  }
 
-  if (error) {
+  if (error)
     return (
       <div className="flex flex-col justify-center items-center text-center h-[80vh] px-6 text-red-500">
         <h1 className="text-3xl font-bold mb-4">Oops! Something went wrong</h1>
         <p className="text-base text-gray-500">Check your connection or try refreshing the page.</p>
       </div>
     )
-  }
 
   return (
     <div className="container mx-auto px-4 py-10 mtt">
-      <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-2xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center border border-gray-200">
+      <div className="bg-white shadow-xl rounded-2xl p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        
         {/* Product Image */}
-        <div className="w-full flex justify-center">
+        <div className="flex justify-center">
           <img
             src={data.thumbnail}
             alt={data.title}
-            className="w-[220px] h-[220px] object-cover rounded-2xl border shadow-lg transition-transform hover:scale-105 duration-300"
+            className="w-[240px] h-[240px] md:w-[300px] md:h-[300px] object-cover rounded-xl shadow-md hover:scale-105 transition duration-300"
           />
         </div>
 
         {/* Product Details */}
-        <div className="space-y-5">
-          <h1 className="text-4xl font-extrabold text-gray-800">{data.title}</h1>
-          <p className="text-2xl font-semibold text-purple-600">${data.price}</p>
-          <p className="text-gray-600 text-sm leading-relaxed">{data.description}</p>
+        <div className="space-y-6">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">{data.title}</h1>
+          <p className="text-2xl md:text-3xl font-semibold text-orange-600">${data.price}</p>
+          <p className="text-gray-700 text-base leading-relaxed">{data.description}</p>
 
-          <div className="grid grid-cols-2 gap-6 text-sm mt-4">
-            <div className="flex items-center gap-2">
-              <FaTag className="text-pink-500" />
+          {/* Rating and Stock */}
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center text-yellow-500 text-lg">
+              {[...Array(Math.floor(data.rating))].map((_, i) => <FaStar key={i} />)}
+              <span className="ml-2 text-gray-600 text-sm">({data.rating} / 5)</span>
+            </div>
+            <div className={`text-sm font-medium ${data.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+              {data.stock > 0 ? `${data.stock} in stock` : 'Out of stock'}
+            </div>
+          </div>
+
+          {/* Brand, Category, Created At */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 text-sm">
+            <div className="flex items-start gap-2">
+              <FaTag className="text-pink-500 mt-1" />
               <div>
-                <span className="text-gray-400">Brand</span>
-                <p className="text-gray-700 font-medium">{data.brand}</p>
+                <p className="text-gray-400 text-xs">Brand</p>
+                <p className="font-medium text-gray-800">{data.brand}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <FaLayerGroup className="text-blue-500" />
+            <div className="flex items-start gap-2">
+              <FaLayerGroup className="text-blue-500 mt-1" />
               <div>
-                <span className="text-gray-400">Category</span>
-                <p className="text-gray-700 font-medium capitalize">{data.category}</p>
+                <p className="text-gray-400 text-xs">Category</p>
+                <p className="font-medium text-gray-800 capitalize">{data.category}</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2 col-span-1 sm:col-span-2">
+              <FaClock className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-gray-400 text-xs">Created At</p>
+                <p className="font-medium text-gray-700">{data.createdAt || 'Feb 5, 2025'}</p>
               </div>
             </div>
           </div>
@@ -76,12 +95,20 @@ function SingleProduct() {
           {/* Add to Cart Button */}
           <button
             onClick={() => {
-              dispatch(addcarts(data))
-              showAlert()
+              if (data.stock > 0) {
+                dispatch(addcarts(data))
+                showAlert()
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Out of Stock',
+                  text: 'Sorry, this product is currently not available.',
+                })
+              }
             }}
-            className="mt-6 bg-[#ff6900] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+            className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-bold text-lg transition duration-300"
           >
-            Add to Cart 💖
+            Add to Cart 🛒
           </button>
         </div>
       </div>

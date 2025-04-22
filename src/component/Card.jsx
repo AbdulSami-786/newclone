@@ -1,71 +1,52 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Heart } from 'lucide-react'; // Optional: for better icons
 
-const Card = ({title , img , id ,price}) => {
-    const navigate = useNavigate();
-    // return (
-    //     <div className="card bg-base-100 w-96 shadow-sm">
-    //         <figure>
-    //             <img
-    //                 src={img}
-    //                 alt="Shoes" />
-    //         </figure>
-    //         <div className="card-body cursor-pointer" onClick={()=>navigate(`/product/${id}`)}>
-    //             <h2 className="card-title">{title}</h2>
-    //             <p>{description}</p>
-    //             <div className="card-actions justify-end">
-    //                 <button className="btn btn-primary" onClick={()=>navigate(`/product/${id}`)}>See more</button>
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
-    return (
-        <div  onClick={()=>navigate(`/product/${id}`)} style={{
-          maxWidth:'100%',
-          minWidth:'31%',
-          border:'1px solid black'
-          
-        }}>
-          <img style={{
-            width:"100%",
-            height:"220px"
-          }} src={img} alt="" />
-          <h1 style={{
-            display:"flex",
-            justifyContent:"space-between",
-            alignItems:"center",
-            width:"90%",
-            margin:"0px auto"
-          }}><div style={{
-            fontFamily:"cursive",
-            fontSize:"1.2rem"
-          }} className="price">{price}</div> 	<div style={{
-            color:"rgba(0, 0, 0, 0.27)",
-          }} className="fav">	&#10084;</div></h1>
-          <h1 style={{
-            fontFamily:"sans-serif",
-            fontSize:"1rem",
-            fontWeight:"600",
-               width:"90%",
-            margin:"0px auto"
-          }}>{title}</h1>
-          <h1 style={{
-            color:"rgba(0, 0, 0, 0.589)",
-            fontFamily:"unset",
-            fontSize:"1rem",
-            width:"90%",
-            margin:"10px auto 0px auto"
-          }} className="addres">Karachi</h1>
-          <h1 style={{
-               color:"rgba(0, 0, 0, 0.589)",
-               fontFamily:"unset",
-               fontSize:"1rem",
-               width:"90%",
-               margin:"5px auto"
-          }} className="time">5 Days ago</h1>
-          </div>
-    
-      )
-}
+const Card = ({ title, img, id, price }) => {
+  const navigate = useNavigate();
 
-export default Card
+  return (
+    <div
+      onClick={() => navigate(`/product/${id}`)}
+      className="group cursor-pointer rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white flex flex-col hover:scale-[1.02]"
+    >
+      {/* Product Image */}
+      <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
+        <img
+          src={img}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <span className="absolute top-2 right-2 bg-white text-red-500 p-2 rounded-full shadow hover:bg-red-100 transition">
+          <Heart size={18} />
+        </span>
+      </div>
+
+      {/* Card Content */}
+      <div className="p-4 sm:p-5 md:p-6 space-y-1 sm:space-y-2">
+        {/* Price */}
+        <div className="flex justify-between items-center">
+          <span className="text-lg sm:text-xl font-bold text-orange-500">
+            ${price}
+          </span>
+          <span className="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full font-medium hidden sm:inline">
+            New
+          </span>
+        </div>
+
+        {/* Title */}
+        <h2 className="text-base sm:text-lg font-semibold text-gray-800 line-clamp-2">
+          {title}
+        </h2>
+
+        {/* Metadata */}
+        <div className="text-sm text-gray-500 flex justify-between">
+          <span>📍 Karachi</span>
+          <span>🕒 5 days ago</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Card;

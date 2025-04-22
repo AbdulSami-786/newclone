@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase/Firebase'; // ✅ Correct import
+import { auth } from '../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +13,15 @@ function Signup() {
   const navigate = useNavigate();
 
   const togglePassword = () => setShowPassword((prev) => !prev);
+
+  useEffect(() => {
+    if (msg) {
+      Swal.fire({
+        text: msg,
+
+      });
+    }
+  }, [msg]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -29,7 +38,7 @@ function Signup() {
       setMsg('Signup successful!');
       setEmail('');
       setPassword('');
-      // navigate("/login"); // Uncomment this if you want to redirect after signup
+      // navigate("/login"); // Uncomment if redirection is needed
     } catch (error) {
       setMsg(error.message);
     } finally {
@@ -38,9 +47,8 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center px-4 mtt">
+    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center px-4">
       <div className="flex flex-col lg:flex-row-reverse items-center justify-between w-full max-w-6xl gap-10">
-
         {/* Text Section */}
         <div className="text-center lg:text-left lg:w-1/2 space-y-6">
           <h1 className="text-4xl font-bold text-primary">Create Your Account 👋</h1>
@@ -60,8 +68,6 @@ function Signup() {
         <div className="card w-full max-w-md bg-base-100 shadow-xl p-6 rounded-2xl">
           <div className="card-body space-y-4">
             <h2 className="text-2xl font-semibold text-center">Sign up</h2>
-
-            {msg && <p className="text-lg text-center text">{msg}</p>}
 
             <form onSubmit={submitHandler} className="space-y-4">
               {/* Email Field */}
