@@ -38,7 +38,7 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center px-4 mtt">
       <div className="flex flex-col lg:flex-row-reverse items-center justify-between w-full max-w-6xl gap-10">
 
         {/* Text Section */}
@@ -61,7 +61,7 @@ function Signup() {
           <div className="card-body space-y-4">
             <h2 className="text-2xl font-semibold text-center">Sign up</h2>
 
-            {msg && <p className="text-sm text-center text-error">{msg}</p>}
+            {msg && <p className="text-lg text-center text">{msg}</p>}
 
             <form onSubmit={submitHandler} className="space-y-4">
               {/* Email Field */}

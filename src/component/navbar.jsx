@@ -1,11 +1,53 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { search } from '../config/redux/reducer/cartSlice';
 
+// Location Display Component
+const LocationDisplay = () => {
+  const [location, setLocation] = useState('Detecting...');
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+            );
+            const data = await response.json();
+            const city = data.address.city || data.address.town || data.address.village || 'Unknown';
+            const country = data.address.country || 'Unknown';
+            setLocation(`${city}, ${country}`);
+          } catch (error) {
+            setLocation('Unable to fetch location');
+          }
+        },
+        () => {
+          setLocation('');
+        }
+      );
+    } else {
+      setLocation('');
+    }
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
+        <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z" />
+      </svg>
+      <h1 className="text-sm lg:text-base font-medium">{location}</h1>
+    </div>
+  );
+};
+
+// Navbar Component
 const Navbar = () => {
   const cartItems = useSelector((state) => state.cart.carts);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ Moved inside the component
   const debounceRef = useRef(null);
 
   const handleChange = (e) => {
@@ -16,46 +58,9 @@ const Navbar = () => {
     }, 300);
   };
 
-  const LocationDisplay = () => {
-    const [location, setLocation] = useState('Detecting...');
-
-    useEffect(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const { latitude, longitude } = position.coords;
-
-            try {
-              const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-              );
-              const data = await response.json();
-
-              const city = data.address.city || data.address.town || data.address.village || 'Unknown';
-              const country = data.address.country || 'Unknown';
-
-              setLocation(`${city}, ${country}`);
-            } catch (error) {
-              setLocation('Unable to fetch location');
-            }
-          },
-          () => {
-            setLocation('Permission denied or unavailable');
-          }
-        );
-      } else {
-        setLocation('Geolocation not supported');
-      }
-    }, []);
-
-    return (
-      <div className="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
-          <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z" />
-        </svg>
-        <h1 className="text-sm lg:text-base font-medium">{location}</h1>
-      </div>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/search');
   };
 
   return (
@@ -98,24 +103,26 @@ const Navbar = () => {
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 py-3 bg-gray-100 gap-3">
         <LocationDisplay />
 
-        <div className="flex w-full lg:w-[40%] items-center gap-2 bg-base-100 rounded-full px-4 py-2 shadow-md">
+        <form onSubmit={handleSubmit} className="flex w-full lg:w-[40%] items-center gap-2 bg-base-100 rounded-full px-4 py-2 shadow-md">
           <input
             type="text"
             placeholder="Find Mobile, Cars..."
             className="bg-transparent focus:outline-none w-full text-sm placeholder:text-base-content/60"
             onChange={handleChange}
           />
-          <Link to="/search" className="flex items-center justify-center">
+          <button type="submit">
             <img
               src="https://www.svgrepo.com/show/7109/search.svg"
               alt="Search Icon"
               className="w-5 h-5 opacity-70 hover:opacity-100 transition duration-150"
             />
-          </Link>
-        </div>
+          </button>
+        </form>
 
         <div className="flex items-center gap-4">
-         <Link to={'/signup'}> <span className="font-medium cursor-pointer">Login</span></Link>
+          <Link to="/signup">
+            <span className="font-medium cursor-pointer">Login</span>
+          </Link>
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold">
             + SELL
           </button>
