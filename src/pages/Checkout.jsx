@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from '../firebase/Firebase';
 
 function Checkout() {
   const cartItems = useSelector((state) => state.cart?.carts || [])
@@ -23,11 +25,22 @@ function Checkout() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Order placed:', { ...form, cartItems, total })
-    alert('✅ Order placed successfully!')
-    navigate('/')
+    try {
+      await addDoc(collection(db, "posts"), {
+        formData: form,
+        cartItems: cartItems,
+        totalAmount: total,
+        createdAt: serverTimestamp(),
+      });
+      console.log('Order placed:', { ...form, cartItems, total })
+      alert('✅ Order placed successfully!')
+      navigate('/')
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      alert('❌ Failed to place order. Please try again.')
+    }
   }
 
   return (
