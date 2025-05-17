@@ -15,6 +15,7 @@ function Checkout() {
   const [form, setForm] = useState({
     fullName: '',
     email: '',
+    contact: '',
     address: '',
     city: '',
     zip: '',
@@ -25,8 +26,59 @@ function Checkout() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  // Validation functions
+  const isValidFullName = (name) => /^[A-Za-z\s]{3,50}$/.test(name.trim())
+  const isValidEmail = (email) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())
+  const isValidPhoneNumber = (phone) => {
+    const phoneRegex = /^0[1-9][0-9]{9}$/;
+    const scamPatterns = [
+      /^(\d)\1+$/, // like 00000000000 or 11111111111
+      /0123456789/,
+      /9876543210/
+    ];
+    if (!phoneRegex.test(phone)) return false;
+    for (let pattern of scamPatterns) {
+      if (pattern.test(phone)) return false;
+    }
+    return true;
+  }
+  const isValidAddress = (address) => address.trim().length >= 5
+  const isValidCity = (city) => /^[A-Za-z\s]{2,50}$/.test(city.trim())
+  const isValidZip = (zip) => /^\d{5,6}$/.test(zip.trim())
+
+  const validateForm = () => {
+    if (!isValidFullName(form.fullName)) {
+      alert("❌ Please enter a valid Full Name (only letters, 3-50 chars).")
+      return false
+    }
+    if (!isValidEmail(form.email)) {
+      alert("❌ Please enter a valid Email address.")
+      return false
+    }
+    if (!isValidPhoneNumber(form.contact)) {
+      alert("❌ Invalid or scam Phone Number detected.")
+      return false
+    }
+    if (!isValidAddress(form.address)) {
+      alert("❌ Address must be at least 5 characters long.")
+      return false
+    }
+    if (!isValidCity(form.city)) {
+      alert("❌ City name must be only letters, 2-50 characters.")
+      return false
+    }
+    if (!isValidZip(form.zip)) {
+      alert("❌ Please enter a valid ZIP code (5 or 6 digits).")
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!validateForm()) return;
+
     try {
       await addDoc(collection(db, "posts"), {
         formData: form,
@@ -58,6 +110,8 @@ function Checkout() {
               value={form.fullName}
               onChange={handleChange}
               className="input input-bordered w-full"
+              pattern="[A-Za-z\s]{3,50}"
+              title="Full Name should be 3-50 letters only"
               required
             />
             <input
@@ -67,6 +121,19 @@ function Checkout() {
               value={form.email}
               onChange={handleChange}
               className="input input-bordered w-full"
+              pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+              title="Enter a valid email address"
+              required
+            />
+            <input
+              type="text"
+              name="contact"
+              placeholder="Contact Number"
+              value={form.contact}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+             pattern="^0[1-9][0-9]{9}$"
+              title="10-digit mobile number starting with 6-9"
               required
             />
             <input
@@ -76,6 +143,8 @@ function Checkout() {
               value={form.address}
               onChange={handleChange}
               className="input input-bordered w-full"
+              minLength={5}
+              title="Address must be at least 5 characters"
               required
             />
             <input
@@ -85,6 +154,8 @@ function Checkout() {
               value={form.city}
               onChange={handleChange}
               className="input input-bordered w-full"
+              pattern="[A-Za-z\s]{2,50}"
+              title="City should be 2-50 letters only"
               required
             />
             <input
@@ -94,6 +165,8 @@ function Checkout() {
               value={form.zip}
               onChange={handleChange}
               className="input input-bordered w-full"
+              pattern="\d{5,6}"
+              title="ZIP code must be 5 or 6 digits"
               required
             />
           </div>
